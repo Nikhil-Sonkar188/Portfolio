@@ -1,9 +1,14 @@
-import { Mail, Phone, Linkedin, Github, MapPin, Send } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, MapPin, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+
+const PUBLIC_KEY = "JhnnJ-hGctIsz9e0n";
+const SERVICE_ID = "service_b6ianv9";
+const TEMPLATE_ID = "template_21wollj";
 
 const contactInfo = [
   {
@@ -44,14 +49,39 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    setIsLoading(true);
+
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        PUBLIC_KEY
+      );
+
+      toast({
+        title: "Message sent!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again or contact me directly via email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -134,9 +164,13 @@ const ContactSection = () => {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" size="lg">
-              <Send className="mr-2" size={18} />
-              Send Message
+            <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+              {isLoading ? (
+                <Loader2 className="mr-2 animate-spin" size={18} />
+              ) : (
+                <Send className="mr-2" size={18} />
+              )}
+              {isLoading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </div>
