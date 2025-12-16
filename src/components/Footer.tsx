@@ -23,7 +23,7 @@ const Footer = () => {
               <Linkedin size={20} />
             </a>
             <a
-              href="https://github.com/nikhilsonkar"
+              href="https://github.com/nikhilme188"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
@@ -32,7 +32,7 @@ const Footer = () => {
               <Github size={20} />
             </a>
             <a
-              href="mailto:nikhilsonkar_23me188@dtu.ac.in"
+              href="mailto:nikhil.sonkar1001@gmail.com"
               className="text-muted-foreground hover:text-primary transition-colors"
               aria-label="Email"
             >

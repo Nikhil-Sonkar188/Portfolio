@@ -1,4 +1,5 @@
 import { Briefcase, Users, Rocket } from "lucide-react";
+import { motion, Variants, easeOut } from "framer-motion";
 
 const experiences = [
   {
@@ -13,55 +14,87 @@ const experiences = [
       "Collaborated with backend & design teams efficiently",
     ],
   },
-  {
-    title: "Intern",
-    company: "DRDO (SSPL)",
-    period: "Jun – Jul 2025",
-    icon: Briefcase,
-    points: [
-      "Integrated engineering design concepts into functional systems",
-      "Worked on quantum computing platform design",
-      "Applied mechanical engineering principles to tech solutions",
-    ],
-  },
-  {
-    title: "Co-Head",
-    company: "E-Cell DTU",
-    period: "2023 – Present",
-    icon: Users,
-    points: [
-      "Increased sponsorships by 35%",
-      "Organized 10+ events with 5000+ attendees",
-      "Led corporate collaborations & workshops",
-    ],
-  },
 ];
 
+// ----------------------
+// Framer Motion Variants
+// ----------------------
+const parentVariant: Variants = {
+  show: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+};
+
+const cardVariant: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: easeOut } },
+};
+
+
+// Icon hover + floating effect
+// const iconVariant: Variants = {
+//   initial: { scale: 1, rotate: 0, y: 0 },
+//   hover: { scale: 1.15, rotate: 360, y: -3, transition: { type: "spring", stiffness: 200 } },
+//   float: { y: [0, -4, 0], transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } },
+// };
+const iconVariant: Variants = {
+  initial: { scale: 1, rotate: 0, y: 0 },
+  hover: {
+    scale: 1.35,        // Slight enlarge
+    rotate: -360,           // Slight rotation
+    y: 5,               // Lift up a little
+    transition: { type: "spring", stiffness: 2000 },
+  },
+};
+// ----------------------
+// Component
+// ----------------------
 const ExperienceSection = () => {
   return (
     <section id="experience" className="py-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <p className="text-primary font-mono mb-2">Where I've worked</p>
-          <h2 className="text-4xl md:text-5xl font-bold">Experience</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-2">Experience</h2>
+          <p className="text-primary font-mono ">Where I've worked</p>
+
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          variants={parentVariant}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-6"
+        >
           {experiences.map((exp, index) => (
-            <div
+            <motion.div
               key={index}
-              className="glass-effect p-6 rounded-2xl hover:border-primary/50 transition-all duration-300 group"
+              variants={cardVariant}
+              className="w-full md:w-[48%] lg:w-[30%] glass-effect p-6 rounded-2xl hover:border-primary/50
+                         transition-all duration-500 group hover:shadow-[0_0_20px_4px_var(--primary)]
+                         dark:hover:shadow-[0_0_25px_6px_rgba(0,150,255,0.6)]
+                         transform hover:-translate-y-2 hover:scale-[1.02]"
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <exp.icon className="text-primary" size={28} />
-                </div>
+                {/* Icon with floating + hover effect */}
+                <motion.div
+                  variants={iconVariant}
+                  initial="initial"
+                  animate="float"
+                  whileHover="hover"
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20
+             flex items-center justify-center shadow-inner mb-4 
+             transition-transform duration-300 hover:shadow-[0_0_15px_3px_rgba(0,255,255,0.4)]"
+                >
+                  <exp.icon className="text-[#43BCF4]" size={28} />
+                </motion.div>
+
                 <div>
                   <h3 className="font-semibold text-lg">{exp.title}</h3>
                   <p className="text-primary text-sm">{exp.company}</p>
                 </div>
               </div>
+
               <p className="text-sm text-muted-foreground mb-4 font-mono">{exp.period}</p>
+
               <ul className="space-y-2">
                 {exp.points.map((point, i) => (
                   <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -70,10 +103,21 @@ const ExperienceSection = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
+
+      {/* Glass effect styling */}
+      <style>{`
+        .glass-effect {
+          background: rgba(255, 255, 255, 0.06);
+          backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect {
+          background: rgba(255, 255, 255, 0.03);
+        }
+      `}</style>
     </section>
   );
 };

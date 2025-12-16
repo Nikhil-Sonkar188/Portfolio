@@ -8,14 +8,14 @@ import emailjs from "@emailjs/browser";
 
 const PUBLIC_KEY = "JhnnJ-hGctIsz9e0n";
 const SERVICE_ID = "service_b6ianv9";
-const TEMPLATE_ID = "template_21wollj";
+const TEMPLATE_ID = "template_2094sls";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "nikhilsonkar_23me188@dtu.ac.in",
-    href: "mailto:nikhilsonkar_23me188@dtu.ac.in",
+    value: "nikhil.sonkar1001@gmail.com",
+    href: "mailto:nikhil.sonkar1001@gmail.com",
   },
   {
     icon: Phone,
@@ -26,14 +26,14 @@ const contactInfo = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    value: "nikhil-sonkar",
+    value: "Nikhil Sonkar",
     href: "https://linkedin.com/in/nikhil-sonkar",
   },
   {
     icon: Github,
     label: "GitHub",
-    value: "nikhilsonkar",
-    href: "https://github.com/nikhilsonkar",
+    value: "Nikhil Sonkar",
+    href: "https://github.com/nikhilme188",
   },
   {
     icon: MapPin,
@@ -88,8 +88,9 @@ const ContactSection = () => {
     <section id="contact" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <p className="text-primary font-mono mb-2">Get in touch</p>
-          <h2 className="text-4xl md:text-5xl font-bold">Contact Me</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-2">Contact Me</h2>
+          <p className="text-primary font-mono ">Get in touch</p>
+          
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
@@ -164,7 +165,7 @@ const ContactSection = () => {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white" size="lg" disabled={isLoading}>
               {isLoading ? (
                 <Loader2 className="mr-2 animate-spin" size={18} />
               ) : (
