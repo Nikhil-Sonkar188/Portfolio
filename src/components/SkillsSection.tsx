@@ -18,6 +18,8 @@ import stripeIcon from "../assets/stripe.png";
 import apiIcon from "../assets/rest api.png";
 import postmanIcon from "../assets/postman.jpg";
 import uiux from "../assets/uiux.png";
+import redisIcon from "../assets/redis.png";
+import dockerIcon from "../assets/docker.png";
 // ----------------------
 // Skill → Icon mapping
 // ----------------------
@@ -37,6 +39,8 @@ const skillIcons: Record<string, string> = {
   "APIs": apiIcon,
   Postman: postmanIcon,
   "Mobile UI/UX": uiux,
+  "Redis": redisIcon, 
+  "Docker": dockerIcon,
 };
 
 // ----------------------
@@ -49,7 +53,7 @@ const skillCategories = [
   },
   {
     title: "Backend & Realtime",
-    skills: ["Firebase", "MongoDB", "Supabase", "Socket.IO"],
+    skills: ["Firebase", "MongoDB", "Supabase", "Socket.IO", "Redis"],
   },
   {
     title: "Programming",
@@ -57,7 +61,7 @@ const skillCategories = [
   },
   {
     title: "Tools & Platforms",
-    skills: ["Git/GitHub", "Stripe", "APIs", "Postman"],
+    skills: ["Git/GitHub", "Stripe", "APIs", "Postman" , "Docker"],
   },
 ];
 

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Suspense, useRef, useEffect, useMemo } from "react";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import profilePlaceholder from "@/assets/profile-placeholder.png";
-import { motion, useMotionValue, useTransform, Variants } from "framer-motion";
+import { motion, useMotionValue, Variants } from "framer-motion";
+import { Trial } from "./trial";
 
 /* ------------------ VARIANTS ------------------ */
 const container: Variants = {
@@ -17,70 +18,47 @@ const item: Variants = {
 
 /* ------------------ COMPONENT ------------------ */
 const HeroSection = () => {
-  // Mouse parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useTransform(mouseY, [-50, 50], [10, -10]);
-  const rotateY = useTransform(mouseX, [-50, 50], [-10, 10]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left - rect.width / 2);
-    mouseY.set(e.clientY - rect.top - rect.height / 2);
-  };
+  
 
   return (
     <section
       id="home"
       className="min-h-screen flex items-center relative overflow-hidden pt-20"
     >
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/30" />
 
-      {/* Animated Blobs */}
-      <div className="blob1" />
-      <div className="blob2" />
-
-      {/* Optional existing circles */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000" />
-
-      <div className="container mx-auto px-6 relative z-10">
+ 
+      <div className="container mx-auto relative z-10 px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* ---------------- IMAGE (Left) ---------------- */}
+          {/* ---------------- IMAGE (Left) - Reverted to Placeholder Image ---------------- */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="order-2 lg:order-1 flex justify-center"
+            className="order-2 lg:order-1 flex justify-center "
           >
-            <motion.div
-              onMouseMove={handleMouseMove}
-              style={{ rotateX, rotateY }}
-              transition={{ type: "spring", stiffness: 120, damping: 15 }}
+            <div
               className="relative perspective-[1200px]"
             >
-              {/* Glow */}
-              <div className="absolute inset-0 rounded-full bg-primary/30 blur-3xl animate-pulse" />
+              
 
-              {/* Avatar */}
-              <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-primary to-accent p-1 animate-float">
-                <div className="w-full h-full rounded-full overflow-hidden bg-secondary">
-                  <img
-                    src={profilePlaceholder}
-                    alt="Nikhil Sonkar"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
+              {/* Placeholder Image - Replaced 3D Canvas */}
+              {/* <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-primary to-accent p-1 animate-float overflow-hidden flex items-center justify-center">
+                
+              </div> */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Trial />
+              </motion.div>
 
               {/* Experience Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="absolute -bottom-4 -right-4 bg-card border border-border rounded-2xl p-4 shadow-lg"
+                className="absolute bottom-[15px] right-[180px] -translate-x-1/2 bg-card border border-border rounded-2xl p-4 shadow-lg z-50"
               >
                 <p className="text-sm text-muted-foreground">Experience</p>
                 <p className="text-2xl font-bold text-blue-400">6 Months</p>
@@ -108,7 +86,7 @@ const HeroSection = () => {
                   }}
                 />
               ))}
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* ---------------- TEXT (Right) ---------------- */}
@@ -203,8 +181,8 @@ const HeroSection = () => {
                       i === 0
                         ? "https://linkedin.com/in/nikhil-sonkar"
                         : i === 1
-                        ? "https://github.com/nikhilme188"
-                        : "mailto:nikhil.sonkar1001@gmail.com"
+                          ? "https://github.com/nikhilme188"
+                          : "mailto:nikhil.sonkar1001@gmail.com"
                     }
                     target="_blank"
                     rel="noopener noreferrer"

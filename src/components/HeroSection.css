@@ -1,0 +1,52 @@
+/* HeroSection.css */
+
+.container {
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+}
+
+.perspective {
+  perspective: 1200px;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.bg-gradient {
+  background: linear-gradient(to bottom right, var(--background), var(--secondary/30));
+}
+
+.blob1,
+.blob2 {
+  /* Add your blob styles here */
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0);
+  }
+  50% {
+    transform: translatey(-10px);
+  }
+  100% {
+    transform: translatey(0);
+  }
+}
+
+/* Add other styles as needed */
